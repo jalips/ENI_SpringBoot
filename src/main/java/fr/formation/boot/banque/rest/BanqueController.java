@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import fr.formation.boot.banque.metier.BanqueException;
 import fr.formation.boot.banque.metier.BanqueService;
@@ -52,7 +53,8 @@ public class BanqueController {
 		
 		}catch(BanqueException e) {
 			e.printStackTrace();
-			return new ResponseEntity<List<Compte>>(HttpStatus.BAD_REQUEST);
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+			//return new ResponseEntity<List<Compte>>(HttpStatus.BAD_REQUEST);
 		}
 	}
 	
